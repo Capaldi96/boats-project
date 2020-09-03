@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { getAllBoats, addBoat, getOneBoat, deleteBoat, editBoat, search} = require ('./database.js');
+const { getAllBoats, addBoat, getOneBoat, deleteBoat, editBoat, search, resetDataBase} = require ('./database.js');
 
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);
@@ -38,6 +38,11 @@ app.get('/api/search', (req,res) =>{
     })
 })
 
+app.get('/api/resetmongodb', (req,res) =>{
+    resetDataBase(dataOrError =>{
+        res.send(dataOrError);
+    })
+})
 
 //querystring
 app.delete('/api/boats/delete/:id', (req, res) => {
